@@ -1,7 +1,7 @@
 # EkatraVideoChatApplication
 Ekatra- Wiring Human Connections
 
-Ekatra is a sanskrit word which means gathered in one place, that is what this application offers, a platform to remotely connect.
+Ekatra is a sanskrit word which means gathered in one place, that is what this application offers, a platform to remotely connect and gather.
 
 This application offers a seamless video calling and chat experience.
 
