@@ -55,15 +55,6 @@ const myPeer = new Peer(undefined, {
     $("ul").append(`<li class="message"><b><i class="far fa-user-circle"></i> <span> ${
             userName === user ? "me" : userName
           }</span></b><br/>${message}</li>`);
-    // messages.innerHTML =
-    // messages.innerHTML +
-    // `<div class="messages">
-    //     <b><i class="far fa-user-circle"></i> <span> ${
-    //       userName === user ? "me" : userName
-    //       // user
-    //     }</span> </b>
-    //     <span>${message}</span>
-    // </div>`;
     scrollToBottom()
   })
 })
