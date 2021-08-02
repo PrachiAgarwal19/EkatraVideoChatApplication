@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
       socket.broadcast.to(roomId).emit("user-connected", userId); // Tell everyone else in the room that they joined
       // messages
     socket.on('message', (message) => {
-      //send message to the same room
+      //send message to the same room including us
       io.to(roomId).emit('createMessage', message,userName)
   });
        // Communicate the disconnection
