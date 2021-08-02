@@ -9,7 +9,9 @@ const io = require("socket.io")(server);
 const { v4: uuidV4 } = require("uuid");
 app.set("view engine", "ejs"); // Tell Express EJS is being used
 
-const { ExpressPeerServer } = require("peer");
+const { ExpressPeerServer } = require("peer");// to ensure we have access to the peer server
+
+//creating the peer server
 const peerServer = ExpressPeerServer(server, {
   debug: true,
 });
