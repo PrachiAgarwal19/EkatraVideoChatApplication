@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
     res.redirect(`/9876`);
   });
   
-//If a specific room link with room id joined, then request for that room
+//If a specific room link with room id joined, then request for that room and fetch/render that room
   app.get("/:room", (req, res) => {
     res.render("room", { roomId: req.params.room });
   });    
