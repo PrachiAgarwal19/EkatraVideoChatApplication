@@ -44,7 +44,7 @@ const myPeer = new Peer(undefined, {
       });
   
       socket.on("user-connected", (userId) => {
-        setTimeout(connectToNewUser, 1000, userId, stream); / If a new user connects
+        setTimeout(connectToNewUser, 1000, userId, stream); // If a new user connects
         //connectToNewUser(userId, stream)
       });
       // input value
