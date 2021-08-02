@@ -1,12 +1,13 @@
-const socket = io("/");
-const videoGrid = document.getElementById("video-grid");
+const socket = io("/"); // Create/include/initialise socket
+const videoGrid = document.getElementById("video-grid"); // Find the video-grid element
 
-let message = document.querySelector('.messages');
+let message = document.querySelector('.messages'); //Find the messages element
 
 
-const myVideo = document.createElement("video");
-myVideo.muted = true;
+const myVideo = document.createElement("video"); // Create a new video tag to show our video
+myVideo.muted = true; //mute our video
 
+// Creating a peer element which represents the current user
 const myPeer = new Peer(undefined, {
     //host: "/",
     //port: "8001",
@@ -16,11 +17,12 @@ const myPeer = new Peer(undefined, {
     secure:true
   });
   
-  const user = prompt("Enter your name");
+  const user = prompt("Enter your name"); //prompt the user for their name
   
   const peers = {};
   
   let myVideoStream;
+// Access the user's video and audio
   navigator.mediaDevices
     .getUserMedia({
       video: true,
@@ -28,18 +30,21 @@ const myPeer = new Peer(undefined, {
     })
     .then((stream) => {
       myVideoStream = stream;
-      addVideoStream(myVideo, stream);
+      addVideoStream(myVideo, stream); // Display our video to ourselves
   
+      // When we join someone's room we will receive a call from them
       myPeer.on("call", (call) => {
-        call.answer(stream);
-        const video = document.createElement("video");
+        call.answer(stream); // Answer call and Stream them our video/audio
+        const video = document.createElement("video"); // Create a video tag for them
+          
+          //we receive their stream in call
         call.on("stream", (userVideoStream) => {
-          addVideoStream(video, userVideoStream);
+          addVideoStream(video, userVideoStream); // Display their video to us
         });
       });
   
       socket.on("user-connected", (userId) => {
-        setTimeout(connectToNewUser, 1000, userId, stream);
+        setTimeout(connectToNewUser, 1000, userId, stream); / If a new user connects
         //connectToNewUser(userId, stream)
       });
       // input value
@@ -63,17 +68,20 @@ const myPeer = new Peer(undefined, {
     if (peers[userId]) peers[userId].close();
   });
   
-  
+  // When we first open the app, have us join a room
   myPeer.on("open", (id) => {
     socket.emit("join-room", ROOM_ID, id,user);
   });
   
+// This runs when someone joins our room
   function connectToNewUser(userId, stream) {
-    const call = myPeer.call(userId, stream);
+    const call = myPeer.call(userId, stream); // Call the user who just joined
     const video = document.createElement("video");
+      //Create a video tag for them Add their video
     call.on("stream", (userVideoStream) => {
       addVideoStream(video, userVideoStream);
     });
+      // If they leave, remove their video
     call.on("close", () => {
       video.remove();
     });
@@ -84,9 +92,9 @@ const myPeer = new Peer(undefined, {
   function addVideoStream(video, stream) {
     video.srcObject = stream;
     video.addEventListener("loadedmetadata", () => {
-      video.play();
+      video.play(); // Play the video as it loads
     });
-    videoGrid.append(video);
+    videoGrid.append(video); // Append video element to videoGrid
   }
   
   if (adapter.browserDetails.browser == 'firefox') {
